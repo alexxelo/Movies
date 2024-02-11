@@ -2,14 +2,15 @@ package com.example.movies.data.repository
 
 import com.example.movies.data.source.local.FavoriteMoviesDataSource
 import com.example.movies.data.source.local.TemporaryMoviesDataSource
-import com.example.movies.data.source.network.MovieApiService
+import com.example.movies.data.source.network.MovieApi
 import com.example.movies.data.source.network.dto.Items
 import com.example.movies.data.source.network.dto.MoviesDto
 import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MovieRepositoryImpl(
-  private val api: MovieApiService,
+class MovieRepositoryImpl @Inject constructor(
+  private val api: MovieApi,
   private val temporaryMoviesDataSource: TemporaryMoviesDataSource,
   private val favoriteMoviesDataSource: FavoriteMoviesDataSource
 ) : MovieRepository {

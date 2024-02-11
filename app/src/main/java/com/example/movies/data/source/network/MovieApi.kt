@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MovieApiService {
+interface MovieApi {
   @GET("/api/v2.2/films/top")
   suspend fun getTopMovies(
     @Query("type") type: String = "TOP_100_POPULAR_FILMS",
