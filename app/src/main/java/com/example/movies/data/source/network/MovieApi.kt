@@ -1,6 +1,6 @@
 package com.example.movies.data.source.network
 
-import com.example.movies.data.source.network.dto.Items
+import com.example.movies.data.source.network.dto.MovieInfoDto
 import com.example.movies.data.source.network.dto.MoviesDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,5 +16,5 @@ interface MovieApi {
   @GET("/api/v2.2/films/{movieId}")
   suspend fun getMovieById(
     @Path("movieId") movieId: Int
-  ): Response<Items>
+  ): Response<MovieInfoDto>
 }

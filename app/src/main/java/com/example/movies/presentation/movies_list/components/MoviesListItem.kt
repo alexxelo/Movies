@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -46,10 +45,8 @@ fun MoviesListItem(
         },
         onLongClick = {
           // TODO(add movie to favorite db )
-
         }
       )
-      //.border(border = BorderStroke(1.dp, color = Color.Gray))
       .padding(10.dp),
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
@@ -94,11 +91,4 @@ fun MoviesListItem(
       )
     }
   }
-}
-
-
-@Preview
-@Composable
-fun MoviesListItemPreview(modifier: Modifier = Modifier) {
-  // MoviesListItem(modifier = modifier)
 }

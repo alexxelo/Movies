@@ -2,44 +2,41 @@ package com.example.movies.presentation.movie_details
 
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.movies.R
+import com.example.movies.presentation.movie_details.components.MovieDetailsInfo
 
 @Composable
 fun MovieDetailsScreen(
+  navController: NavController,
   viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
   val state = viewModel.state.value
 
-  Box(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding()
-  ) {
-    state.movie?.let { movie ->
-      LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item {
+  state.movie?.let { movie ->
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+      item {
+        Box(modifier = Modifier.fillMaxSize()) {
           AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
               .data(movie.posterUrl)
@@ -51,37 +48,23 @@ fun MovieDetailsScreen(
             error = painterResource(id = R.drawable.ic_broken_image),
             placeholder = painterResource(id = R.drawable.loading_img)
           )
-          Column(
+          IconButton(
+            onClick = {
+              navController.popBackStack()
+            },
             modifier = Modifier
-              .fillMaxWidth()
-              .padding(20.dp),
-            horizontalAlignment = Alignment.Start
+              .padding(16.dp)
+              .align(Alignment.TopStart)
           ) {
-
-            Text(
-              text = movie.nameRu,
-              fontWeight = FontWeight.Bold,
-              fontSize = 30.sp,
-              textAlign = TextAlign.Start,
-              modifier = Modifier
-            )
-            Text(
-              text = movie.genres[0].genre, textAlign = TextAlign.Start, color = Color.Gray
-            )
-            Text(
-              text = movie.countries[0].country, textAlign = TextAlign.Start, color = Color.Gray
+            Icon(
+              imageVector = Icons.Default.ArrowBack,
+              contentDescription = stringResource(id = R.string.Back),
+              tint = colorResource(id = R.color.blue)
             )
           }
         }
+        MovieDetailsInfo(movie)
       }
     }
-
   }
-
-}
-
-@Preview
-@Composable
-fun MovieDetailsScreenPreview(modifier: Modifier = Modifier) {
-  //MovieDetailsScreen(modifier = modifier)
 }

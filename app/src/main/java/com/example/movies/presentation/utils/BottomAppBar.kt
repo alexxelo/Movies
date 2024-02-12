@@ -7,17 +7,26 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.movies.R
 
 
 @Composable
-fun BottomAppBarMain(modifier: Modifier = Modifier, isSelected: Boolean = true) {
+fun BottomAppBarMain(
+  modifier: Modifier = Modifier,
+  onPopularClick: () -> Unit = {},
+  onFavoriteClick: () -> Unit = {}
+) {
+  var selectedButton by remember { mutableStateOf(BottomBarButton.Popular) }
+
   BottomAppBar(
     modifier = modifier,
     actions = {
@@ -25,14 +34,18 @@ fun BottomAppBarMain(modifier: Modifier = Modifier, isSelected: Boolean = true) 
       BottomAppBarButton(
         modifier = modifier.weight(1f),
         text = stringResource(id = R.string.popular),
-        isSelected = false,
-        onClick = { }
+        isSelected = selectedButton == BottomBarButton.Popular,
+        onClick = { onPopularClick()
+          selectedButton = BottomBarButton.Popular }
       )
       BottomAppBarButton(
         modifier = modifier.weight(1f),
         text = stringResource(id = R.string.favorite),
-        isSelected = isSelected,
-        onClick = { }
+        isSelected = selectedButton == BottomBarButton.Favorites,
+        onClick = {
+          onFavoriteClick()
+          selectedButton = BottomBarButton.Favorites
+        }
       )
     },
     containerColor = Color.Transparent
@@ -54,8 +67,7 @@ fun BottomAppBarButton(modifier: Modifier, text: String, isSelected: Boolean, on
   }
 }
 
-@Preview
-@Composable
-fun BottomBarPreview(modifier: Modifier = Modifier) {
-  BottomAppBarMain(modifier = modifier)
+enum class BottomBarButton {
+  Popular,
+  Favorites
 }

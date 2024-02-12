@@ -4,4 +4,7 @@
     <string name="poster">Постер</string>
     <string name="favorite">Избранные</string>
     <string name="search">поиск</string>
+    <string name="reload">Повторить</string>
+    <string name="error_image">Ошибка загрузки</string>
+    <string name="Back">Назад\n</string>
 </resources>

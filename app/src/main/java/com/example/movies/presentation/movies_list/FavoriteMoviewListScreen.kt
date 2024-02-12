@@ -3,6 +3,7 @@ package com.example.movies.presentation.movies_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -20,15 +21,17 @@ import com.example.movies.presentation.utils.TopAppBarMain
 fun FavoriteMoviesListScreen(navController: NavController) {
   Scaffold(
     topBar = {
-      TopAppBarMain(title = stringResource(id = R.string.popular),
+      TopAppBarMain(title = stringResource(id = R.string.favorite),
         onSearch = { navController.navigate(Screen.SearchMovieScreen.route) })
     },
 
-    bottomBar = { BottomAppBarMain()}
+    bottomBar = { BottomAppBarMain(onPopularClick = { navController.navigate(Screen.MoviesListScreen.route) }) }
   ) { padding ->
 
     Box(modifier = Modifier.padding(padding)) {
+      LazyColumn() {
 
+      }
     }
   }
 }

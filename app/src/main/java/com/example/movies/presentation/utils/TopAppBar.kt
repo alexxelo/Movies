@@ -2,6 +2,7 @@ package com.example.movies.presentation.utils
 
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,9 +33,25 @@ fun TopAppBarMain(title: String, onSearch: () -> Unit) {
         )
       }
     }
-
   )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarSearch( onSearch: () -> Unit, onBack: () -> Unit) {
+  TopAppBar(
+    title = {
+      Text(text = "")
+    },
+    navigationIcon = {
+      IconButton(onClick = { onBack() }) {
+        Icon(imageVector = Icons.Filled.ArrowBack,
+          contentDescription = stringResource(id = R.string.Back))
+      }
+    },
+  )
+}
+
 @Preview
 @Composable
 fun TopAppBarPreview(modifier: Modifier = Modifier) {
