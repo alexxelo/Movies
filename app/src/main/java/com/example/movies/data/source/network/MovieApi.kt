@@ -1,6 +1,6 @@
 package com.example.movies.data.source.network
 
-import com.example.movies.data.source.network.dto.Items
+import com.example.movies.data.source.network.dto.MovieInfoDto
 import com.example.movies.data.source.network.dto.MoviesDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,8 +13,8 @@ interface MovieApi {
     @Query("type") type: String = "TOP_POPULAR_ALL",
   ): Response<MoviesDto>
 
-  @GET("/api/v2.2/films/top/{movieId}")
+  @GET("/api/v2.2/films/{movieId}")
   suspend fun getMovieById(
-    @Path("movieId") movieId: String
-  ): Response<Items>
+    @Path("movieId") movieId: Int
+  ): Response<MovieInfoDto>
 }

@@ -22,19 +22,15 @@ class MoviesListViewModel @Inject constructor(
   init {
     getMovies()
   }
-
   private fun getMovies() {
     getMoviesListUseCase().onEach { result ->
       when (result) {
         is Resource.Success -> {
           _state.value = MoviesListState(movies = result.data)
         }
-
         is Resource.Error -> {
           _state.value = MoviesListState(error = result.message ?: "An unexpected error occured")
-
         }
-
         is Resource.Loading -> {
           _state.value = MoviesListState(isLoading = true)
         }

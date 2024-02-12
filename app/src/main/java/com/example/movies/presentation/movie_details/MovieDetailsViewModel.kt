@@ -18,29 +18,26 @@ class MovieDetailsViewModel @Inject constructor(
   private val getMovieUseCase: GetMovieUseCase,
   savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-  private val _state = mutableStateOf(MovieDetailsState())
-  val state: State<MovieDetailsState> = _state
+  private val _state = mutableStateOf(MovieInfoState())
+  val state: State<MovieInfoState> = _state
 
   init {
-    savedStateHandle.get<String>(Constants.ID)?.let { id ->
+    savedStateHandle.get<Int>(Constants.ID)?.let { id ->
       getMovie(id)
     }
   }
-
-  private fun getMovie(id: String) {
+  private fun getMovie(id: Int) {
     getMovieUseCase(id).onEach { result ->
       when (result) {
         is Resource.Success -> {
-          _state.value = MovieDetailsState(movie = result.data)
+          _state.value = MovieInfoState(movie = result.data)
         }
-
         is Resource.Error -> {
-          _state.value = MovieDetailsState(error = result.message ?: "An unexpected error occured")
+          _state.value = MovieInfoState(error = result.message ?: "An unexpected error occured")
 
         }
-
         is Resource.Loading -> {
-          _state.value = MovieDetailsState(isLoading = true)
+          _state.value = MovieInfoState(isLoading = true)
         }
       }
     }.launchIn(viewModelScope)

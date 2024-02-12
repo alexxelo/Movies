@@ -11,37 +11,46 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.movies.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarMain(title: String, onSearch: () -> Unit) {
   TopAppBar(
     title = {
-      Text(text = title)
+      Text(text = title, fontWeight = FontWeight.Bold)
     },
     actions = {
       IconButton(onClick = onSearch) {
-        Icon(imageVector = Icons.Filled.Search, contentDescription = "")
-      }
-    }
-  )
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppSearch(title: String, onBackh: () -> Unit) {
-  TopAppBar(
-    title = {
-      Text(text = title)
-    },
-    navigationIcon = {
-      IconButton(onClick = onBackh) {
-        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+        Icon(
+          imageVector = Icons.Filled.Search,
+          contentDescription = stringResource(id = R.string.search),
+          tint = colorResource(id = R.color.blue)
+        )
       }
     }
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarSearch( onSearch: () -> Unit, onBack: () -> Unit) {
+  TopAppBar(
+    title = {
+      Text(text = "")
+    },
+    navigationIcon = {
+      IconButton(onClick = { onBack() }) {
+        Icon(imageVector = Icons.Filled.ArrowBack,
+          contentDescription = stringResource(id = R.string.Back))
+      }
+    },
+  )
+}
 
 @Preview
 @Composable

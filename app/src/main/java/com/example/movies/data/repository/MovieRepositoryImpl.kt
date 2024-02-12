@@ -4,6 +4,7 @@ import com.example.movies.data.source.local.FavoriteMoviesDataSource
 import com.example.movies.data.source.local.TemporaryMoviesDataSource
 import com.example.movies.data.source.network.MovieApi
 import com.example.movies.data.source.network.dto.Items
+import com.example.movies.data.source.network.dto.MovieInfoDto
 import com.example.movies.data.source.network.dto.MoviesDto
 import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +36,7 @@ class MovieRepositoryImpl @Inject constructor(
     return api.getTopMovies()
   }
 
-  override suspend fun getMovieById(id: String): Response<Items> {
+  override suspend fun getMovieById(id: Int): Response<MovieInfoDto> {
     return api.getMovieById(id)
   }
 }

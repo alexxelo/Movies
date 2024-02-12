@@ -6,16 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.movies.presentation.movie_details.MovieDetailsScreen
+import com.example.movies.presentation.movies_list.FavoriteMoviesListScreen
 import com.example.movies.presentation.movies_list.MoviesListScreen
 import com.example.movies.presentation.navigation.Screen
+import com.example.movies.presentation.search_movie.SearchMovieScreen
 import com.example.movies.presentation.ui.theme.MoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,6 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       MoviesTheme {
-        // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           val navController = rememberNavController()
           NavHost(
@@ -35,32 +35,31 @@ class MainActivity : ComponentActivity() {
             composable(
               route = Screen.MoviesListScreen.route
             ) {
-              MoviesListScreen(navController)
+              MoviesListScreen(
+                navController = navController,
+              )
             }
             composable(
-              route = Screen.MovieDetailsScreen.route + "/{movieId}"
+              route = Screen.MovieDetailsScreen.route + "/{id}",
+              arguments = listOf(navArgument("id") { type = NavType.IntType })
             ) {
-              MovieDetailsScreen()
+              MovieDetailsScreen(
+                navController
+              )
+            }
+            composable(
+              route = Screen.SearchMovieScreen.route,
+            ) {
+              SearchMovieScreen(navController)
+            }
+            composable(
+              route = Screen.MovieFavoriteScreen.route,
+            ) {
+              FavoriteMoviesListScreen(navController)
             }
           }
         }
       }
     }
-  }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-  Text(
-    text = "Hello $name!",
-    modifier = modifier
-  )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-  MoviesTheme {
-    Greeting("Android")
   }
 }
