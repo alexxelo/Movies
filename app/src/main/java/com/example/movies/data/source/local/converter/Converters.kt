@@ -6,8 +6,8 @@ import com.example.movies.data.source.network.dto.Genres
 import com.example.movies.data.source.network.dto.Items
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
 class Converters {
+
   @TypeConverter
   fun fromItemsList(items: List<Items>): String {
     return Gson().toJson(items)
@@ -25,9 +25,9 @@ class Converters {
   }
 
   @TypeConverter
-  fun stringToCountries(countries: String): List<Countries> {
+  fun stringToCountries(countriesString: String): List<Countries> {
     val type = object : TypeToken<List<Countries>>() {}.type
-    return Gson().fromJson(countries, type)
+    return Gson().fromJson(countriesString, type)
   }
 
   @TypeConverter
@@ -36,9 +36,8 @@ class Converters {
   }
 
   @TypeConverter
-  fun stringToGenres(genres: String): List<Genres> {
+  fun stringToGenres(genresString: String): List<Genres> {
     val type = object : TypeToken<List<Genres>>() {}.type
-    return Gson().fromJson(genres, type)
+    return Gson().fromJson(genresString, type)
   }
-
 }

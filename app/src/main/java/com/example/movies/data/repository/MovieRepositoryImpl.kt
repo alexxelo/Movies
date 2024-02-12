@@ -7,6 +7,7 @@ import com.example.movies.data.source.network.dto.Items
 import com.example.movies.data.source.network.dto.MoviesDto
 import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -30,11 +31,11 @@ class MovieRepositoryImpl @Inject constructor(
 
   }
 
-  override suspend fun getMovies(): List<MoviesDto> {
-    return api.getTopMovies("TOP_100_POPULAR_FILMS ")
+  override suspend fun getMovies(): Response<MoviesDto> {
+    return api.getTopMovies()
   }
 
-  override suspend fun getMovieById(id: String): Items {
+  override suspend fun getMovieById(id: String): Response<Items> {
     return api.getMovieById(id)
   }
 }

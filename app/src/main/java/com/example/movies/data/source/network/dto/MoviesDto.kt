@@ -63,6 +63,6 @@ fun MoviesDto.toMovies(): Movies {
   return Movies(
     total,
     totalPages,
-    items.map { it.toMovie() }
+    items.map { it.toMovieDetails() }
   )
 }
