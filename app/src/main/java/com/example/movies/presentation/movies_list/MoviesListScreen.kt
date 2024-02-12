@@ -1,6 +1,7 @@
 package com.example.movies.presentation.movies_list
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,11 +31,15 @@ import com.example.movies.presentation.utils.TopAppBarMain
 @Composable
 fun MoviesListScreen(
   navController: NavController,
+  //onMovieClick: (Int) -> Unit,
   viewModel: MoviesListViewModel = hiltViewModel()
 ) {
   val state = viewModel.state.value
   Scaffold(
-    topBar = { TopAppBarMain(title = stringResource(id = R.string.popular), onSearch = {}) },
+    topBar = {
+      TopAppBarMain(title = stringResource(id = R.string.popular),
+        onSearch = { navController.navigate(Screen.SearchMovieScreen.route) })
+    },
     bottomBar = { BottomAppBarMain() }
   ) { paddingValues ->
     Box(
@@ -42,17 +47,21 @@ fun MoviesListScreen(
         .fillMaxSize()
         .padding(paddingValues)
     ) {
+
       LazyColumn(modifier = Modifier.fillMaxSize()) {
         state.movies?.let {
           items(it.items) { movie ->
 
+            //Log.d("debug"," id = ${movie.kinopoiskId.toString()}")
             MoviesListItem(
               movie = movie,
-              isFavorite = false
+              //isFavorite = false
             ) {
+              Log.d("debug"," id = ${movie.kinopoiskId.toString()}")
+
+              //onMovieClick(movie.kinopoiskId)
               navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
             }
-
           }
         }
       }
@@ -64,7 +73,7 @@ fun MoviesListScreen(
           modifier = Modifier.fillMaxWidth()
         )
       }
-      if (state.isLoading){
+      if (state.isLoading) {
         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
       }
     }

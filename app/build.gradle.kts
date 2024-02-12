@@ -82,6 +82,7 @@ dependencies {
 
   // To use Kotlin Symbol Processing (KSP)
   ksp("androidx.room:room-compiler:2.6.1")
+  implementation("io.coil-kt:coil-compose:2.4.0")
 
 
   implementation("com.squareup.retrofit2:retrofit:2.9.0")

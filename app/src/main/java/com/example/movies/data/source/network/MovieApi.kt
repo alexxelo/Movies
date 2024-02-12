@@ -13,8 +13,8 @@ interface MovieApi {
     @Query("type") type: String = "TOP_POPULAR_ALL",
   ): Response<MoviesDto>
 
-  @GET("/api/v2.2/films/top/{movieId}")
+  @GET("/api/v2.2/films/{movieId}")
   suspend fun getMovieById(
-    @Path("movieId") movieId: String
+    @Path("movieId") movieId: Int
   ): Response<Items>
 }

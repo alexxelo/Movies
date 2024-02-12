@@ -21,24 +21,23 @@ class MovieDetailsViewModel @Inject constructor(
   private val _state = mutableStateOf(MovieDetailsState())
   val state: State<MovieDetailsState> = _state
 
+
   init {
-    savedStateHandle.get<String>(Constants.ID)?.let { id ->
+    savedStateHandle.get<Int>(Constants.ID)?.let { id ->
       getMovie(id)
     }
   }
 
-  private fun getMovie(id: String) {
+  private fun getMovie(id: Int) {
     getMovieUseCase(id).onEach { result ->
       when (result) {
         is Resource.Success -> {
           _state.value = MovieDetailsState(movie = result.data)
         }
-
         is Resource.Error -> {
           _state.value = MovieDetailsState(error = result.message ?: "An unexpected error occured")
 
         }
-
         is Resource.Loading -> {
           _state.value = MovieDetailsState(isLoading = true)
         }

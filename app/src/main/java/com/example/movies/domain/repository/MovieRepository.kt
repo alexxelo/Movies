@@ -15,6 +15,6 @@ interface MovieRepository {
 
   // retrofit
   suspend fun getMovies(): Response<MoviesDto>
-  suspend fun getMovieById(id:String):Response<Items>
+  suspend fun getMovieById(id:Int):Response<Items>
 
 }

@@ -2,5 +2,6 @@
     <string name="app_name">Movies</string>
     <string name="popular">Популярные</string>
     <string name="poster">Постер</string>
-    <string name="favorite">Избранное</string>
+    <string name="favorite">Избранные</string>
+    <string name="search">поиск</string>
 </resources>

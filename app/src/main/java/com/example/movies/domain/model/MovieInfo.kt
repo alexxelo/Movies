@@ -1,15 +1,15 @@
-package com.example.movies.data.source.network.dto
+package com.example.movies.domain.model
 
-import com.example.movies.domain.model.Movies
+import com.example.movies.data.source.network.dto.Countries
+import com.example.movies.data.source.network.dto.Genres
 
-
-data class MovieInfoDto(
+data class MovieInfo(
   var kinopoiskId: Int,
   var kinopoiskHDId: String,
   var imdbId: String,
   var nameRu: String,
-  var nameEn: String? = "",
-  var nameOriginal: String? = "",
+  var nameEn: String,
+  var nameOriginal: String,
   var posterUrl: String,
   var posterUrlPreview: String,
   var coverUrl: String,
@@ -49,20 +49,4 @@ data class MovieInfoDto(
   var serial: Boolean,
   var shortFilm: Boolean,
   var completed: Boolean
-
 )
-
-data class MoviesDto(
-  var total: Int,
-  var totalPages: Int,
-  var items: List<Items>
-
-)
-
-fun MoviesDto.toMovies(): Movies {
-  return Movies(
-    total,
-    totalPages,
-    items.map { it.toMovieDetails() }
-  )
-}

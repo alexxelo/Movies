@@ -35,7 +35,7 @@ class MovieRepositoryImpl @Inject constructor(
     return api.getTopMovies()
   }
 
-  override suspend fun getMovieById(id: String): Response<Items> {
+  override suspend fun getMovieById(id: Int): Response<Items> {
     return api.getMovieById(id)
   }
 }
