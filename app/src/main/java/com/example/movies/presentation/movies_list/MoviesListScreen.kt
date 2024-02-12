@@ -21,13 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.movies.R
+import com.example.movies.presentation.movies_list.components.MoviesListItem
+import com.example.movies.presentation.navigation.Screen
 import com.example.movies.presentation.utils.BottomAppBarMain
 import com.example.movies.presentation.utils.TopAppBarMain
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoviesListScreen(
-  modifier: Modifier = Modifier,
   navController: NavController,
   viewModel: MoviesListViewModel = hiltViewModel()
 ) {
@@ -42,15 +43,17 @@ fun MoviesListScreen(
         .padding(paddingValues)
     ) {
       LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(state.movies) { movie ->
+        state.movies?.let {
+          items(it.items) { movie ->
 
-//          MoviesListItem(
-//            movie = movie.items.map { it },
-//            isFavorite = false
-//          ) {
-//            navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.items.map { it.kinopoiskId }}")
-//          }
+            MoviesListItem(
+              movie = movie,
+              isFavorite = false
+            ) {
+              navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
+            }
 
+          }
         }
       }
       if (state.error.isNotBlank()) {

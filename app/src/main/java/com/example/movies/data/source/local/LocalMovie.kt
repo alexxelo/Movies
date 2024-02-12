@@ -17,7 +17,7 @@ data class TemporaryMovie(
 @Entity(tableName = "favorite_movies")
 data class FavoriteMovie(
   @PrimaryKey
-  val id: Int,
+  val id: Int = 0,
   val kinopoiskId: Int,
   val nameRu: String,
   val nameEn: String,
