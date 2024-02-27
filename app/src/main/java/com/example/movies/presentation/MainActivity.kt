@@ -13,8 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.movies.presentation.movie_details.MovieDetailsScreen
-import com.example.movies.presentation.movies_list.FavoriteMoviesListScreen
-import com.example.movies.presentation.movies_list.MoviesListScreen
+import com.example.movies.presentation.movies_list.FavoriteMoviesScreen
+import com.example.movies.presentation.movies_list.PopularMoviesScreen
 import com.example.movies.presentation.navigation.Screen
 import com.example.movies.presentation.search_movie.SearchMovieScreen
 import com.example.movies.presentation.ui.theme.MoviesTheme
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
             composable(
               route = Screen.MoviesListScreen.route
             ) {
-              MoviesListScreen(
+              PopularMoviesScreen(
                 navController = navController,
               )
             }
@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
             composable(
               route = Screen.MovieFavoriteScreen.route,
             ) {
-              FavoriteMoviesListScreen(navController)
+              FavoriteMoviesScreen(navController)
             }
           }
         }

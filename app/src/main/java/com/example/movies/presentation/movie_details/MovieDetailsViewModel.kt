@@ -18,6 +18,7 @@ class MovieDetailsViewModel @Inject constructor(
   private val getMovieUseCase: GetMovieUseCase,
   savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
   private val _state = mutableStateOf(MovieInfoState())
   val state: State<MovieInfoState> = _state
 

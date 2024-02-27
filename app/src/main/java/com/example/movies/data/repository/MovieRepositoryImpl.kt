@@ -1,5 +1,6 @@
 package com.example.movies.data.repository
 
+import com.example.movies.data.source.local.FavoriteMovie
 import com.example.movies.data.source.local.FavoriteMoviesDataSource
 import com.example.movies.data.source.local.TemporaryMoviesDataSource
 import com.example.movies.data.source.network.MovieApi
@@ -16,20 +17,20 @@ class MovieRepositoryImpl @Inject constructor(
   private val temporaryMoviesDataSource: TemporaryMoviesDataSource,
   private val favoriteMoviesDataSource: FavoriteMoviesDataSource
 ) : MovieRepository {
-  override fun getMoviesStream(): Flow<List<MoviesDto>> {
-    TODO("Not yet implemented")
+  override fun getMoviesStream(): Flow<List<FavoriteMovie>> {
+    return favoriteMoviesDataSource.getAll()
   }
 
-  override fun getMovieStream(movieId: Int): Flow<Items> {
-    TODO("Not yet implemented")
+  override fun getMovieStream(movieId: Int): Flow<FavoriteMovie> {
+    return favoriteMoviesDataSource.getMovie(movieId)
   }
 
-  override suspend fun insert(items: Items) {
-    TODO("Not yet implemented")
+  override suspend fun insert(movie: FavoriteMovie) {
+    favoriteMoviesDataSource.insert(movie)
   }
 
-  override suspend fun delete(items: Items) {
-
+  override suspend fun delete(movie: FavoriteMovie) {
+  favoriteMoviesDataSource.delete(movie)
   }
 
   override suspend fun getMovies(): Response<MoviesDto> {

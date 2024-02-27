@@ -1,5 +1,6 @@
 package com.example.movies.data.source.network.dto
 
+import com.example.movies.data.source.local.FavoriteMovie
 import com.example.movies.domain.model.MovieInfo
 import com.example.movies.domain.model.Movies
 
@@ -99,6 +100,55 @@ fun MovieInfoDto.toMovieInfo(): MovieInfo {
     serial,
     shortFilm,
     completed
+  )
+}
+
+fun MovieInfoDto.toFavoriteMovie(): FavoriteMovie {
+  return FavoriteMovie(
+    kinopoiskId = kinopoiskId,
+    kinopoiskHDId = kinopoiskHDId ?: "",
+    imdbId = imdbId ?: "",
+    nameRu = nameRu ?: "", nameEn = nameEn ?: "",
+    nameOriginal = nameOriginal ?: "",
+    posterUrl = posterUrl ?: "",
+    posterUrlPreview = posterUrlPreview ?: "",
+    coverUrl = coverUrl ?: "",
+    logoUrl = logoUrl ?: "",
+    reviewsCount = reviewsCount,
+    ratingGoodReview = ratingGoodReview,
+    ratingGoodReviewVoteCount = ratingGoodReviewVoteCount,
+    ratingKinopoisk = ratingKinopoisk,
+    ratingKinopoiskVoteCount = ratingKinopoiskVoteCount,
+    ratingImdb = ratingImdb,
+    ratingImdbVoteCount = ratingImdbVoteCount,
+    ratingFilmCritics = ratingFilmCritics,
+    ratingFilmCriticsVoteCount = ratingFilmCriticsVoteCount,
+    ratingAwait = ratingAwait,
+    ratingAwaitCount = ratingAwaitCount,
+    ratingRfCritics = ratingRfCritics,
+    ratingRfCriticsVoteCount = ratingRfCriticsVoteCount,
+    webUrl = webUrl ?: "",
+    year = year,
+    filmLength = filmLength,
+    slogan = slogan ?: "",
+    description = description ?: "",
+    shortDescription = shortDescription ?: "",
+    editorAnnotation = editorAnnotation ?: "",
+    isTicketsAvailable = isTicketsAvailable,
+    productionStatus = productionStatus ?: "",
+    type = type ?: "",
+    ratingMpaa = ratingMpaa ?: "",
+    ratingAgeLimits = ratingAgeLimits ?: "",
+    hasImax = hasImax,
+    has3D = has3D,
+    lastSync = lastSync ?: "",
+    countries = countries,
+    genres = genres,
+    startYear = startYear,
+    endYear = endYear,
+    serial = serial,
+    shortFilm = shortFilm,
+    completed = completed
   )
 }
 

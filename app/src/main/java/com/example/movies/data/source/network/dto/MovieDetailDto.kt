@@ -45,19 +45,20 @@ fun Items.toMovieDetails(): MovieDetail {
   )
 }
 
-fun Items.toFavoriteMovie(): FavoriteMovie {
-  return FavoriteMovie(
-    kinopoiskId = kinopoiskId,
-    nameRu = nameRu,
-    nameEn = nameEn ?: "",
-    nameOriginal = nameOriginal ?: "",
-    countries = countries,
-    genres = genres,
-    ratingKinopoisk = ratingKinopoisk,
-    ratingImbd = ratingImbd,
-    year = year,
-    type = type,
-    posterUrl = posterUrl,
-    posterUrlPreview = posterUrlPreview
-  )
-}
+//
+//fun Items.toFavoriteMovie(): FavoriteMovie {
+//  return FavoriteMovie(
+//    kinopoiskId = kinopoiskId,
+//    nameRu = nameRu,
+//    nameEn = nameEn ?: "",
+//    nameOriginal = nameOriginal ?: "",
+//    countries = countries,
+//    genres = genres,
+//    ratingKinopoisk = ratingKinopoisk,
+//    ratingImbd = ratingImbd,
+//    year = year,
+//    type = type,
+//    posterUrl = posterUrl,
+//    posterUrlPreview = posterUrlPreview
+//  )
+//}

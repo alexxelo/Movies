@@ -6,12 +6,18 @@ import javax.inject.Inject
 
 class TemporaryMoviesDataSource @Inject constructor(private val temporaryMovieDao: TemporaryMovieDao) : DataSource<TemporaryMovie> {
 
-  fun getMovie(id: Int): Flow<TemporaryMovie> {
-    return temporaryMovieDao.getMovie(id = id)
-  }
+
 
   override fun getAll(): Flow<List<TemporaryMovie>> {
     return temporaryMovieDao.getAll()
+  }
+
+  override fun getMovie(id: Int): Flow<TemporaryMovie> {
+    TODO("Not yet implemented")
+  }
+
+  override suspend fun delete(movie: TemporaryMovie) {
+    TODO("Not yet implemented")
   }
 
   override suspend fun insert(movie: TemporaryMovie) {

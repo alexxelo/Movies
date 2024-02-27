@@ -1,6 +1,7 @@
 package com.example.movies.presentation.movies_list
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -30,14 +32,16 @@ import com.example.movies.presentation.movies_list.components.MoviesListItem
 import com.example.movies.presentation.navigation.Screen
 import com.example.movies.presentation.utils.BottomAppBarMain
 import com.example.movies.presentation.utils.TopAppBarMain
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MoviesListScreen(
+fun PopularMoviesScreen(
   navController: NavController,
-  viewModel: MoviesListViewModel = hiltViewModel()
+  viewModel: PopularMoviesViewModel = hiltViewModel()
 ) {
   val state = viewModel.state.value
+  val coroutineScope = rememberCoroutineScope()
   Scaffold(
     topBar = {
       TopAppBarMain(title = stringResource(id = R.string.popular),
@@ -61,9 +65,15 @@ fun MoviesListScreen(
 
             MoviesListItem(
               movie = movie,
-            ) {
+            onMovieClick = {
               navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
-            }
+            },
+              onMovieLongClick = { movie ->
+                coroutineScope.launch {
+                  viewModel.getMovie(movie.kinopoiskId)
+                }
+              }
+            )
           }
         }
       }

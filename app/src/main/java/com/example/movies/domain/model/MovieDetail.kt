@@ -3,7 +3,7 @@ package com.example.movies.domain.model
 import com.example.movies.data.source.network.dto.Countries
 import com.example.movies.data.source.network.dto.Genres
 
-data class MovieDetail(
+data class  MovieDetail(
   var kinopoiskId: Int,
   var nameRu: String,
   var nameEn: String,
