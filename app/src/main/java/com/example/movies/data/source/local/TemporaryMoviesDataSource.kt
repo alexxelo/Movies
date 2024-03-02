@@ -16,7 +16,7 @@ class TemporaryMoviesDataSource @Inject constructor(private val temporaryMovieDa
     TODO("Not yet implemented")
   }
 
-  override suspend fun delete(movie: TemporaryMovie) {
+  override suspend fun delete(movieId: Int) {
     TODO("Not yet implemented")
   }
 

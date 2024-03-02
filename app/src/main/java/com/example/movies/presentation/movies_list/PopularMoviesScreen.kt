@@ -1,7 +1,6 @@
 package com.example.movies.presentation.movies_list
 
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -65,12 +64,13 @@ fun PopularMoviesScreen(
 
             MoviesListItem(
               movie = movie,
-            onMovieClick = {
-              navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
-            },
-              onMovieLongClick = { movie ->
+              isFavorite = true,
+              onMovieClick = {
+                navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
+              },
+              onMovieLongClick = { clickedMovie ->
                 coroutineScope.launch {
-                  viewModel.getMovie(movie.kinopoiskId)
+                  viewModel.getMovie(clickedMovie.kinopoiskId)
                 }
               }
             )

@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,9 +38,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.movies.R
-import com.example.movies.domain.model.MovieDetail
 import com.example.movies.domain.model.MovieInfo
-import com.example.movies.presentation.movies_list.components.MoviesListItem
 import com.example.movies.presentation.navigation.Screen
 import com.example.movies.presentation.utils.BottomAppBarMain
 import com.example.movies.presentation.utils.TopAppBarMain
@@ -47,8 +46,13 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteMoviesScreen(navController: NavController, viewModel: FavoriteMoviesViewModel = hiltViewModel()) {
+fun FavoriteMoviesScreen(
+  navController: NavController,
+  viewModel: FavoriteMoviesViewModel = hiltViewModel()
+) {
   val state = viewModel.state.value
+  val coroutineScope = rememberCoroutineScope()
+
   Scaffold(
     topBar = {
       TopAppBarMain(title = stringResource(id = R.string.favorite),
@@ -58,20 +62,25 @@ fun FavoriteMoviesScreen(navController: NavController, viewModel: FavoriteMovies
     bottomBar = { BottomAppBarMain(onPopularClick = { navController.navigate(Screen.MoviesListScreen.route) }) }
   ) { padding ->
 
-    Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+    Box(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(padding)
+    ) {
       LazyColumn(modifier = Modifier.fillMaxSize()) {
         state.movies?.let {
           items(it) { movie ->
 
             FavoriteMoviesList(
               movie = movie,
+              isFavorite = true,
               onMovieClick = {
                 navController.navigate(Screen.MovieDetailsScreen.route + "/${movie.kinopoiskId}")
               },
-              onMovieLongClick = { movie ->
-//                coroutineScope.launch {
-//                  viewModel.getMovie(movie.kinopoiskId)
-//                }
+              onMovieLongClick = { clickedMovie ->
+                coroutineScope.launch {
+                  viewModel.deleteMovie(clickedMovie.kinopoiskId)
+                }
               }
             )
           }
@@ -97,7 +106,7 @@ fun FavoriteMoviesList(
           onMovieClick(movie)
         },
         onLongClick = {
-          //onMovieLongClick(movie)
+          onMovieLongClick(movie)
           // TODO(add fav icon )
         }
       )

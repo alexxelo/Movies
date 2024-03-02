@@ -11,11 +11,11 @@ class FavoriteMoviesDataSource @Inject constructor(private val favoriteMovieDao:
   }
 
   override fun getMovie(id:Int): Flow<FavoriteMovie> {
-    return favoriteMovieDao.getMovie(id = id)
+    return favoriteMovieDao.getMovie(id)
   }
 
-  override suspend fun delete(movie: FavoriteMovie) {
-    favoriteMovieDao.delete(movie)
+  override suspend fun delete(movieId: Int) {
+    favoriteMovieDao.delete(movieId)
   }
 
   override suspend fun insert(movie: FavoriteMovie) {

@@ -4,7 +4,6 @@ import com.example.movies.data.source.local.FavoriteMovie
 import com.example.movies.data.source.local.FavoriteMoviesDataSource
 import com.example.movies.data.source.local.TemporaryMoviesDataSource
 import com.example.movies.data.source.network.MovieApi
-import com.example.movies.data.source.network.dto.Items
 import com.example.movies.data.source.network.dto.MovieInfoDto
 import com.example.movies.data.source.network.dto.MoviesDto
 import com.example.movies.domain.repository.MovieRepository
@@ -29,8 +28,8 @@ class MovieRepositoryImpl @Inject constructor(
     favoriteMoviesDataSource.insert(movie)
   }
 
-  override suspend fun delete(movie: FavoriteMovie) {
-  favoriteMoviesDataSource.delete(movie)
+  override suspend fun delete(movieId: Int) {
+  favoriteMoviesDataSource.delete(movieId)
   }
 
   override suspend fun getMovies(): Response<MoviesDto> {

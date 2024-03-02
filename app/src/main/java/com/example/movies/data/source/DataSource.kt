@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DataSource<T> {
   fun getAll(): Flow<List<T>>
-  fun getMovie(id:Int): Flow<T>
-  suspend fun insert(movie :T)
-  suspend fun delete(movie :T)
+  fun getMovie(id: Int): Flow<T>
+  suspend fun insert(movie: T)
+  suspend fun delete(movieId: Int)
 }

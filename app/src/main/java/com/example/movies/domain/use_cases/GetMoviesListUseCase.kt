@@ -1,6 +1,5 @@
 package com.example.movies.domain.use_cases
 
-import android.util.Log
 import com.example.movies.common.Resource
 import com.example.movies.data.source.network.dto.toMovies
 import com.example.movies.domain.model.Movies
@@ -17,7 +16,7 @@ class GetMoviesListUseCase @Inject constructor(private val repository: MovieRepo
     try {
       emit(Resource.Loading<Movies>())
       val movies = repository.getMovies().body()!!.toMovies()
-      Log.d("Debug"," moviesDto = $movies")
+      //Log.d("Debug"," moviesDto = $movies")
       emit(Resource.Success<Movies>(movies))
 
     } catch (e:HttpException){

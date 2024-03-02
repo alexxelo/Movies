@@ -15,23 +15,24 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteMoviesViewModel @Inject constructor(
   private val getMoviesStreamUseCase: GetMoviesStreamUseCase,
-  private val deleteFromFavoriteUseCase : DeleteFavoriteMovieUseCase
+  private val deleteFromFavoriteUseCase : DeleteFavoriteMovieUseCase,
 ): ViewModel() {
 
   private val _state = mutableStateOf(FavoriteMoviesState())
   val state: State<FavoriteMoviesState> = _state
 
-  fun getFavoriteMovies(){
+  init {
+    getFavoriteMovies()
+  }
+  private fun getFavoriteMovies(){
     getMoviesStreamUseCase().onEach { result ->
       when (result) {
         is Resource.Success -> {
           _state.value = FavoriteMoviesState(movies = result.data)
         }
-
         is Resource.Error -> {
           _state.value = FavoriteMoviesState(error = result.message ?: "An unexpected error occured")
         }
-
         is Resource.Loading -> {
           _state.value = FavoriteMoviesState(isLoading = true)
         }
@@ -39,4 +40,7 @@ class FavoriteMoviesViewModel @Inject constructor(
     }.launchIn(viewModelScope)
   }
 
+  suspend fun deleteMovie(movieId: Int){
+    deleteFromFavoriteUseCase(movieId)
+  }
 }
