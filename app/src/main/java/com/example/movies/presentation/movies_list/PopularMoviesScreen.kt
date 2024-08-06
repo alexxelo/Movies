@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+  import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +40,7 @@ fun PopularMoviesScreen(
   navController: NavController,
   viewModel: PopularMoviesViewModel = hiltViewModel()
 ) {
-  val state = viewModel.state.value
+  val state = viewModel.state.collectAsState()
   val coroutineScope = rememberCoroutineScope()
   Scaffold(
     topBar = {
@@ -59,7 +60,7 @@ fun PopularMoviesScreen(
     ) {
 
       LazyColumn(modifier = Modifier.fillMaxSize()) {
-        state.movies?.let {
+        state.value.movies?.let {
           items(it.items) { movie ->
 
             MoviesListItem(
@@ -77,39 +78,48 @@ fun PopularMoviesScreen(
           }
         }
       }
-      if (state.error.isNotBlank()) {
-        Column(
-          modifier = Modifier.fillMaxSize(),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.Center
-        ) {
-          Image(
-            painter = painterResource(id = R.drawable.error),
-            contentDescription = stringResource(id = R.string.error_image)
-          )
-          Text(
-            text = state.error,
-
-            color = MaterialTheme.colorScheme.error,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(vertical = 20.dp)
-          )
-          Button(onClick = {
-            navController.navigate(Screen.MoviesListScreen.route) {
-              popUpTo(Screen.MoviesListScreen.route) {
-                inclusive = true
-              }
-            }
-          }) {
-            Text(text = stringResource(id = R.string.reload))
-          }
-        }
-      }
-      if (state.isLoading) {
+      ShowError(navController, state.value)
+      if (state.value.isLoading) {
         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
       }
     }
   }
+}
+
+@Composable
+fun ShowError(
+  navController: NavController,
+  state: MoviesListState
+) {
+  if (state.error.isNotBlank()) {
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
+    ) {
+      Image(
+        painter = painterResource(id = R.drawable.error),
+        contentDescription = stringResource(id = R.string.error_image)
+      )
+      Text(
+        text = state.error,
+
+        color = MaterialTheme.colorScheme.error,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(vertical = 20.dp)
+      )
+      Button(onClick = {
+        navController.navigate(Screen.MoviesListScreen.route) {
+          popUpTo(Screen.MoviesListScreen.route) {
+            inclusive = true
+          }
+        }
+      }) {
+        Text(text = stringResource(id = R.string.reload))
+      }
+    }
+  }
+
 }

@@ -55,5 +55,5 @@ fun TopAppBarSearch( onSearch: () -> Unit, onBack: () -> Unit) {
 @Preview
 @Composable
 fun TopAppBarPreview(modifier: Modifier = Modifier) {
-  //TopAppBarMain()
+  TopAppBarMain("asd", {})
 }

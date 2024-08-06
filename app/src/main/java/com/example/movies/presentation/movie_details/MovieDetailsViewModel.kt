@@ -11,6 +11,7 @@ import com.example.movies.domain.use_cases.GetMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,8 +24,10 @@ class MovieDetailsViewModel @Inject constructor(
   val state: State<MovieInfoState> = _state
 
   init {
-    savedStateHandle.get<Int>(Constants.ID)?.let { id ->
-      getMovie(id)
+    viewModelScope.launch {
+      savedStateHandle.get<Int>(Constants.ID)?.let { id ->
+        getMovie(id)
+      }
     }
   }
   private fun getMovie(id: Int) {

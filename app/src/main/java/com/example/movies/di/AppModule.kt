@@ -28,7 +28,8 @@ object DatabaseModule {
     return Room.databaseBuilder(
       context,
       MovieDatabase::class.java, "movies_database"
-    ).build()
+    ).fallbackToDestructiveMigration()
+      .build()
   }
 
   @Provides

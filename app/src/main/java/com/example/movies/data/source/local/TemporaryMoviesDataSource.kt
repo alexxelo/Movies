@@ -4,9 +4,8 @@ import com.example.movies.data.source.DataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class TemporaryMoviesDataSource @Inject constructor(private val temporaryMovieDao: TemporaryMovieDao) : DataSource<TemporaryMovie> {
-
-
+class TemporaryMoviesDataSource @Inject constructor(private val temporaryMovieDao: TemporaryMovieDao) :
+  DataSource<TemporaryMovie> {
 
   override fun getAll(): Flow<List<TemporaryMovie>> {
     return temporaryMovieDao.getAll()
@@ -23,6 +22,5 @@ class TemporaryMoviesDataSource @Inject constructor(private val temporaryMovieDa
   override suspend fun insert(movie: TemporaryMovie) {
     return temporaryMovieDao.insert(movie)
   }
-
 
 }

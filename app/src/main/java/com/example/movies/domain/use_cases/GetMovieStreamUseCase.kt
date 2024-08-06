@@ -16,10 +16,6 @@ class GetMovieStreamUseCase @Inject constructor(private val repository: MovieRep
     try {
       emit(Resource.Loading<MovieInfo>())
 
-//      val movie = repository.getMovieStream(movieId).single()
-//      val movieInfo = movie.toMovieInfo()
-//      emit(Resource.Success(movieInfo))
-
       repository.getMovieStream(movieId).collect{
         emit(Resource.Success(it.toMovieInfo()))
       }

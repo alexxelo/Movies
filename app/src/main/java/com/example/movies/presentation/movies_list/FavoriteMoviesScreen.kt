@@ -15,11 +15,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,7 +52,7 @@ fun FavoriteMoviesScreen(
   navController: NavController,
   viewModel: FavoriteMoviesViewModel = hiltViewModel()
 ) {
-  val state = viewModel.state.value
+  val state = viewModel.state.collectAsState()
   val coroutineScope = rememberCoroutineScope()
 
   Scaffold(
@@ -68,7 +70,7 @@ fun FavoriteMoviesScreen(
         .padding(padding)
     ) {
       LazyColumn(modifier = Modifier.fillMaxSize()) {
-        state.movies?.let {
+        state.value.movies?.let {
           items(it) { movie ->
 
             FavoriteMoviesList(
@@ -85,6 +87,9 @@ fun FavoriteMoviesScreen(
             )
           }
         }
+      }
+      if (state.value.isLoading) {
+        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
       }
     }
   }

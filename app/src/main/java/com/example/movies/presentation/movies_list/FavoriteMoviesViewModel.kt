@@ -1,13 +1,14 @@
 package com.example.movies.presentation.movies_list
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.common.Resource
 import com.example.movies.domain.use_cases.DeleteFavoriteMovieUseCase
 import com.example.movies.domain.use_cases.GetMoviesStreamUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -18,8 +19,8 @@ class FavoriteMoviesViewModel @Inject constructor(
   private val deleteFromFavoriteUseCase : DeleteFavoriteMovieUseCase,
 ): ViewModel() {
 
-  private val _state = mutableStateOf(FavoriteMoviesState())
-  val state: State<FavoriteMoviesState> = _state
+  private val _state = MutableStateFlow(FavoriteMoviesState())
+  val state: StateFlow<FavoriteMoviesState> = _state.asStateFlow()
 
   init {
     getFavoriteMovies()

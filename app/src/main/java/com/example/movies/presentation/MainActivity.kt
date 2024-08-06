@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.movies.presentation.movie_details.MovieDetailsScreen
+import com.example.movies.presentation.movie_details.MovieDetailsViewModel
 import com.example.movies.presentation.movies_list.FavoriteMoviesScreen
 import com.example.movies.presentation.movies_list.PopularMoviesScreen
 import com.example.movies.presentation.navigation.Screen
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
+      val vm : MovieDetailsViewModel = hiltViewModel()
       MoviesTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           val navController = rememberNavController()
@@ -41,7 +44,9 @@ class MainActivity : ComponentActivity() {
               route = Screen.MovieDetailsScreen.route + "/{id}",
               arguments = listOf(navArgument("id") { type = NavType.IntType })
             ) {
-              MovieDetailsScreen(navController)
+              MovieDetailsScreen(navController,
+                //viewModel = vm
+              )
             }
             composable(
               route = Screen.SearchMovieScreen.route,
