@@ -4,30 +4,38 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.movies.data.source.network.dto.Countries
 import com.example.movies.data.source.network.dto.Genres
-import com.example.movies.data.source.network.dto.Items
+import com.example.movies.domain.model.MovieInfo
 
-@Entity(tableName = "movies")
-data class TemporaryMovie(
-  @PrimaryKey(autoGenerate = true)
-  val id: Int,
-  val total: Int,
-  val totalPages: Int,
-  val items: List<Items>
-)
 @Entity(tableName = "favorite_movies")
 data class FavoriteMovie(
   @PrimaryKey
-  val id: Int = 0,
-  val kinopoiskId: Int,
-  val nameRu: String,
-  val nameEn: String,
-  val nameOriginal: String,
-  val countries: List<Countries>,
-  val genres: List<Genres>,
-  val ratingKinopoisk: Double,
-  val ratingImbd: Double,
-  val year: String,
-  val type: String,
-  val posterUrl: String,
-  val posterUrlPreview: String,
+  var kinopoiskId: Int,
+  var nameRu: String? = "",
+  var nameEn: String? = "",
+  var nameOriginal: String? = "",
+  var countries: List<Countries> = emptyList(),
+  var genres: List<Genres> = emptyList(),
+  var ratingKinopoisk: Double = 0.0,
+  var ratingImdb: Double = 0.0,
+  var year: String? = "",
+  var type: String? = "",
+  var posterUrl: String? = "",
+  var posterUrlPreview: String? = "",
+  val description: String? = "",
+)
+
+fun FavoriteMovie.toMovieInfo(): MovieInfo = MovieInfo(
+  kinopoiskId = kinopoiskId,
+  nameRu = nameRu ?: "",
+  nameEn = nameEn ?: "",
+  nameOriginal = nameOriginal ?: "",
+  posterUrl = posterUrl ?: "",
+  posterUrlPreview = posterUrlPreview ?: "",
+  ratingKinopoisk = ratingKinopoisk,
+  ratingImdb = ratingImdb,
+  year = year ?: "",
+  description = description ?: "",
+  type = type ?: "",
+  countries = countries,
+  genres = genres,
 )

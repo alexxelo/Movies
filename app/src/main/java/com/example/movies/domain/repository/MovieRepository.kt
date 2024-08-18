@@ -1,6 +1,6 @@
 package com.example.movies.domain.repository
 
-import com.example.movies.data.source.network.dto.Items
+import com.example.movies.data.source.local.FavoriteMovie
 import com.example.movies.data.source.network.dto.MovieInfoDto
 import com.example.movies.data.source.network.dto.MoviesDto
 import kotlinx.coroutines.flow.Flow
@@ -9,10 +9,10 @@ import retrofit2.Response
 interface MovieRepository {
 
   //room
-  fun getMoviesStream(): Flow<List<MoviesDto>>
-  fun getMovieStream(movieId: Int): Flow<Items>
-  suspend fun insert(items: Items)
-  suspend fun delete(items: Items)
+  fun getMoviesStream(): Flow<List<FavoriteMovie>>
+  fun getMovieStream(movieId: Int): Flow<FavoriteMovie>
+  suspend fun insert(movie: FavoriteMovie)
+  suspend fun delete(movieId: Int)
 
   // retrofit
   suspend fun getMovies(): Response<MoviesDto>

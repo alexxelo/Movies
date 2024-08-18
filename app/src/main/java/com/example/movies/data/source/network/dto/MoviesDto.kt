@@ -54,51 +54,19 @@ data class MovieInfoDto(
 
 fun MovieInfoDto.toMovieInfo(): MovieInfo {
   return MovieInfo(
-    kinopoiskId,
-    kinopoiskHDId ?: "",
-    imdbId ?: "",
-    nameRu ?: "",
-    nameEn ?: "",
-    nameOriginal ?: "",
-    posterUrl ?: "",
-    posterUrlPreview ?: "",
-    coverUrl ?: "",
-    logoUrl ?: "",
-    reviewsCount,
-    ratingGoodReview,
-    ratingGoodReviewVoteCount,
-    ratingKinopoisk,
-    ratingKinopoiskVoteCount,
-    ratingImdb,
-    ratingImdbVoteCount,
-    ratingFilmCritics,
-    ratingFilmCriticsVoteCount,
-    ratingAwait,
-    ratingAwaitCount,
-    ratingRfCritics,
-    ratingRfCriticsVoteCount,
-    webUrl ?: "",
-    year,
-    filmLength,
-    slogan ?: "",
-    description ?: "",
-    shortDescription ?: "",
-    editorAnnotation ?: "",
-    isTicketsAvailable,
-    productionStatus ?: "",
-    type ?: "",
-    ratingMpaa ?: "",
-    ratingAgeLimits ?: "",
-    hasImax,
-    has3D,
-    lastSync ?: "",
-    countries,
-    genres,
-    startYear,
-    endYear,
-    serial,
-    shortFilm,
-    completed
+    kinopoiskId = kinopoiskId,
+    nameRu = nameRu ?: "",
+    nameEn = nameEn ?: "",
+    nameOriginal = nameOriginal ?: "",
+    posterUrl = posterUrl ?: "",
+    posterUrlPreview = posterUrlPreview ?: "",
+    ratingKinopoisk = ratingKinopoisk,
+    ratingImdb = ratingImdb,
+    year = year.toString(),
+    description = description ?: "",
+    type = type ?: "",
+    countries = countries,
+    genres = genres,
   )
 }
 
@@ -111,8 +79,8 @@ data class MoviesDto(
 
 fun MoviesDto.toMovies(): Movies {
   return Movies(
-    total,
-    totalPages,
-    items.map { it.toMovieDetails() }
+    total = total,
+    totalPages = totalPages,
+    items = items.map { it.toMovieDetails() }
   )
 }

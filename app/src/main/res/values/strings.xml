@@ -3,8 +3,12 @@
     <string name="popular">Популярные</string>
     <string name="poster">Постер</string>
     <string name="favorite">Избранные</string>
-    <string name="search">поиск</string>
+    <string name="search">Поиск</string>
     <string name="reload">Повторить</string>
     <string name="error_image">Ошибка загрузки</string>
     <string name="Back">Назад\n</string>
+    <string name="empty_search_result">Ничего не нашлось :(</string>
+    <string name="empty_search_screen">Введите название фильма</string>
+    <string name="empty_favorite_list">Empty favourite list</string>
+
 </resources>

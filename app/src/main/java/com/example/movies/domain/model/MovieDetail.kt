@@ -11,9 +11,26 @@ data class MovieDetail(
   var countries: List<Countries>,
   var genres: List<Genres>,
   var ratingKinopoisk: Double,
-  var ratingImbd: Double,
+  var ratingImdb: Double,
   var year: String,
   var type: String,
   var posterUrl: String,
-  var posterUrlPreview: String
+  var posterUrlPreview: String,
+  var description: String?
+)
+
+fun MovieDetail.toMovieInfo(): MovieInfo = MovieInfo(
+  kinopoiskId = kinopoiskId,
+  nameRu = nameRu,
+  nameEn = nameEn,
+  nameOriginal = nameOriginal,
+  countries = countries,
+  genres = genres,
+  ratingKinopoisk = ratingKinopoisk,
+  ratingImdb = ratingImdb,
+  year = year,
+  type = type,
+  posterUrl = posterUrl,
+  description = description ?: "",
+  posterUrlPreview = posterUrlPreview
 )

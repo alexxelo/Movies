@@ -6,7 +6,6 @@ import com.example.movies.common.Constants
 import com.example.movies.data.repository.MovieRepositoryImpl
 import com.example.movies.data.source.local.FavoriteMoviesDataSource
 import com.example.movies.data.source.local.MovieDatabase
-import com.example.movies.data.source.local.TemporaryMoviesDataSource
 import com.example.movies.data.source.network.MovieApi
 import com.example.movies.domain.repository.MovieRepository
 import dagger.Module
@@ -28,19 +27,14 @@ object DatabaseModule {
     return Room.databaseBuilder(
       context,
       MovieDatabase::class.java, "movies_database"
-    ).build()
+    ).fallbackToDestructiveMigration()
+      .build()
   }
 
   @Provides
   @Singleton
   fun provideFavoriteMoviesDataSource(database: MovieDatabase): FavoriteMoviesDataSource {
     return FavoriteMoviesDataSource(database.favoriteMoviesDao())
-  }
-
-  @Provides
-  @Singleton
-  fun provideTemporaryMoviesDataSource(database: MovieDatabase): TemporaryMoviesDataSource {
-    return TemporaryMoviesDataSource(database.temporaryMoviesDao())
   }
 }
 
@@ -75,8 +69,7 @@ object AppModule {
   fun provideMovieRepository(
     api: MovieApi,
     favoriteMovieDao: FavoriteMoviesDataSource,
-    temporaryMovieDao: TemporaryMoviesDataSource
   ): MovieRepository {
-    return MovieRepositoryImpl(api, temporaryMovieDao, favoriteMovieDao)
+    return MovieRepositoryImpl(api, favoriteMovieDao)
   }
 }
