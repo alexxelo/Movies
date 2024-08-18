@@ -18,11 +18,11 @@ class GetMoviesStreamUseCase @Inject constructor(private val repository: MovieRe
       emit(Resource.Loading<List<MovieInfo>>())
       val movieList = mutableListOf<MovieInfo>()
       repository.getMoviesStream().collect { favoriteMovieList ->
+        movieList.clear()
         movieList.addAll(favoriteMovieList.map { it.toMovieInfo() })
         emit(Resource.Success<List<MovieInfo>>(movieList))
       }
-      Log.d("Debug"," moviesDto stream = $movieList")
-      //emit(Resource.Success<List<MovieInfo>>(movieList))
+      Log.d(""," moviesDto stream = $movieList")
     } catch (e: HttpException){
       emit(Resource.Error<List<MovieInfo>>(e.localizedMessage ?: "An unexpected error is occurred"))
     } catch (e: IOException){

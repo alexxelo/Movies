@@ -15,13 +15,21 @@ class GetMovieUseCase @Inject constructor(private val repository: MovieRepositor
   operator fun invoke(id: Int): Flow<Resource<MovieInfo>> = flow {
     try {
       emit(Resource.Loading<MovieInfo>())
-      val movie = repository.getMovieById(id).body()!!.toMovieInfo()
-      emit(Resource.Success<MovieInfo>(movie))
-
+      val response = repository.getMovieById(id)
+      val movie = response.body()?.toMovieInfo()
+      if (movie != null) {
+        emit(Resource.Success<MovieInfo>(movie))
+      } else {
+        emit(Resource.Error<MovieInfo>("Movie not found or invalid data"))
+      }
     } catch (e: HttpException) {
       emit(Resource.Error<MovieInfo>(e.localizedMessage ?: "An unexpected error is occured"))
     } catch (e: IOException) {
-      emit(Resource.Error<MovieInfo>(e.localizedMessage ?: "Couldn't reach server. Check your internet connection"))
+      emit(
+        Resource.Error<MovieInfo>(
+          e.localizedMessage ?: "Couldn't reach server. Check your internet connection"
+        )
+      )
 
     }
   }

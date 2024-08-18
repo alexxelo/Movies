@@ -1,6 +1,7 @@
 package com.example.movies.presentation.movie_details
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -31,7 +34,7 @@ fun MovieDetailsScreen(
   navController: NavController,
   viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
-  val state = viewModel.state.value
+  val state by viewModel.state.collectAsState()
 
   state.movie?.let { movie ->
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -63,7 +66,15 @@ fun MovieDetailsScreen(
             )
           }
         }
-        MovieDetailsInfo(movie)
+        Log.d("","des ${movie.description}")
+        Log.d("", movie.nameRu)
+        MovieDetailsInfo(
+          movieDescription = movie.description,
+          movieName = movie.nameRu,
+          movieGenre = movie.genres[0].genre,
+          movieCountry = movie.countries[0].country
+
+        )
       }
     }
   }

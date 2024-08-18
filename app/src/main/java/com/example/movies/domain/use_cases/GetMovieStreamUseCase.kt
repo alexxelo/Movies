@@ -15,11 +15,13 @@ class GetMovieStreamUseCase @Inject constructor(private val repository: MovieRep
   operator fun invoke(movieId: Int): Flow<Resource<MovieInfo>> = flow {
     try {
       emit(Resource.Loading<MovieInfo>())
-
-      repository.getMovieStream(movieId).collect{
-        emit(Resource.Success(it.toMovieInfo()))
+      repository.getMovieStream(movieId).collect { favoriteMovie ->
+        if (favoriteMovie != null) {
+          emit(Resource.Success(favoriteMovie.toMovieInfo()))
+        } else {
+          emit(Resource.Error<MovieInfo>("Movie not found in local database"))
+        }
       }
-
     } catch (e: HttpException) {
       emit(Resource.Error<MovieInfo>(e.localizedMessage ?: "An unexpected error is occurred"))
     } catch (e: IOException) {

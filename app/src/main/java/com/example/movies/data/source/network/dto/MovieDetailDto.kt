@@ -10,11 +10,12 @@ data class Items(
   var countries: List<Countries>,
   var genres: List<Genres>,
   var ratingKinopoisk: Double,
-  var ratingImbd: Double,
+  var ratingImdb: Double,
   var year: String? = "",
   var type: String,
   var posterUrl: String,
-  var posterUrlPreview: String
+  var posterUrlPreview: String,
+  var description: String = ""
 
 )
 
@@ -27,19 +28,18 @@ data class Genres(
 )
 
 
-fun Items.toMovieDetails(): MovieDetail {
-  return MovieDetail(
-    kinopoiskId = kinopoiskId,
-    nameRu = nameRu ?: "",
-    nameEn = nameEn ?: "",
-    nameOriginal = nameOriginal ?: "",
-    countries = countries,
-    genres = genres,
-    ratingKinopoisk = ratingKinopoisk,
-    ratingImbd = ratingImbd,
-    year = year?:"",
-    type = type,
-    posterUrl = posterUrl,
-    posterUrlPreview = posterUrlPreview
-  )
-}
+fun Items.toMovieDetails(): MovieDetail = MovieDetail(
+  kinopoiskId = kinopoiskId,
+  nameRu = nameRu ?: "",
+  nameEn = nameEn ?: "",
+  nameOriginal = nameOriginal ?: "",
+  countries = countries,
+  genres = genres,
+  ratingKinopoisk = ratingKinopoisk,
+  ratingImdb = ratingImdb,
+  year = year ?: "",
+  type = type,
+  posterUrl = posterUrl,
+  description = description,
+  posterUrlPreview = posterUrlPreview
+)
