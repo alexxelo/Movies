@@ -1,9 +1,6 @@
 # Movie List
-
-
-
+An app with a list of films and the ability to save.
 # Stack
-
 - Kotlin
 - MVVM
 - Single activity
@@ -16,16 +13,16 @@
 - Bottom Navigation
 
 # Features
-## Popular
+### Popular
 - Displays films and TV series with the parameter /films/collections?type=TOP_POPULAR_ALL .
 - A long tap on a list item will add the film to your favourites.
 - The search is automatic without delay.
 
-## Favourite
+### Favourite
 - The films on this screen are retrieved from the DB and are available when there is no internet on the device.
 - A long tap on a film in your favourites removes it from this list.
 
-## Details
+### Details
 - The details screen understands where the user is coming from and depending on this, selects the data source (network or database).
 
 # Sreenshots
@@ -34,5 +31,3 @@
 ![image (3)](https://github.com/user-attachments/assets/a80e08c9-aa11-4368-8ca2-f8668e0f08b4)
 ![image (2)](https://github.com/user-attachments/assets/b6a246b9-4612-4b92-946d-859fc39608a4)
 ![image (1)](https://github.com/user-attachments/assets/fb78adeb-fede-4308-b6d9-2ee238a80b9a)
-
- 
